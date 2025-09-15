@@ -19,7 +19,7 @@ function Dashboard() {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/rct_etvi_git_supa_log">
         <Routes>
           <Route path="/" element={<HomePage />} /> {/* ✔️ Carga HomePage */}
           <Route path="/login" element={<LoginForm />} />
