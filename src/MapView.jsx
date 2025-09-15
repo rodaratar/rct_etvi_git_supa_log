@@ -34,7 +34,7 @@ const MapView = () => {
 
    useEffect(() => {
     //fetch('/geojson/IGP_1.geojson')
-  fetch(import.meta.env.BASE_URL + 'https://ygdoofsevlrtfrgshifj.supabase.co/rest/v1/geojson_eventos', {
+  fetch('https://ygdoofsevlrtfrgshifj.supabase.co/rest/v1/geojson_eventos', {
     headers: {
     'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnZG9vZnNldmxydGZyZ3NoaWZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNzAwMDIsImV4cCI6MjA3MTc0NjAwMn0.l7pWMPejmO_yRAdg-mMMBezBNQABU0Zwk4P6d9iivvA',
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnZG9vZnNldmxydGZyZ3NoaWZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNzAwMDIsImV4cCI6MjA3MTc0NjAwMn0.l7pWMPejmO_yRAdg-mMMBezBNQABU0Zwk4P6d9iivvA',
