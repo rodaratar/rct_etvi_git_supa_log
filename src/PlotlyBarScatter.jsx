@@ -2,42 +2,20 @@
 import Plot from 'react-plotly.js';
 import './PlotlyBarScatter.css';
 
-import { supabase } from './supabaseClient';
-
 // src/components/Grafico.jsx
 import { useEffect, useState } from 'react';
+
+import { useGeoJson } from './useGeoJson'; // Ruta del hook ../hooks/useGeoJson';
 
 
 const BarScatter = () => {
 
-    const [geoData, setGeoData] = useState(null);
+    const { geoData, loading, error } = useGeoJson();
 
+  if (loading) return <div>Cargando datos del gráfico...</div>;
+  if (error) return <div>Error al cargar datos: {error.message}</div>;
+  if (!geoData || geoData.features.length === 0) return <div>Sin datos</div>;
 
-
-useEffect(() => {
-  const fetchGeoData = async () => {
-    const { data, error } = await supabase
-      .from('geojson_eventos')
-      .select('*');
-
-    if (error) {
-      console.error('Error al cargar GeoJSON:', error);
-      return;
-    }
-
-    const geoJsonData = {
-      type: 'FeatureCollection',
-      features: data[0]?.geojson?.features || [],
-    };
-
-    setGeoData(geoJsonData);
-  };
-
-  fetchGeoData();
-}, []);
-
-
-    if (!geoData) return <div>Cargando datos...</div>;
 
     const valores = geoData.features.map((f) => f.properties.magnitud); // Ajusta según tus atributos
 

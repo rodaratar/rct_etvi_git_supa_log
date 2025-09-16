@@ -11,13 +11,17 @@ import { useAuth } from './AuthContext';
 // src/components/Mapa.jsx
 import { useEffect, useState } from 'react';
 
-import { supabase } from './supabaseClient';
+import { useGeoJson } from './useGeoJson'; // Ruta del hook ../hooks/useGeoJson';
 
 const MapView = () => {
 
   const { user } = useAuth();
 
+  const { geoData, loading, error } = useGeoJson();
+
   if (!user) return <p>Cargando mapa...</p>;
+  if (loading) return <p>Cargando datos geográficos...</p>;
+  if (error) return <p>Error al cargar datos: {error.message}</p>;
 
   // Crear ícono personalizado
   const customIcon = L.icon({
@@ -32,33 +36,7 @@ const MapView = () => {
     }
   };
 
-  const [geoData, setGeoData] = useState(null);
-
-
-useEffect(() => {
-  const fetchGeoData = async () => {
-    const { data, error } = await supabase
-      .from('geojson_eventos')
-      .select('*');
-
-    if (error) {
-      console.error('Error al cargar GeoJSON:', error);
-      return;
-    }
-
-    const geoJsonData = {
-      type: 'FeatureCollection',
-      features: data[0]?.geojson?.features || [],
-    };
-
-    setGeoData(geoJsonData);
-  };
-
-  fetchGeoData();
-}, []);
-
-
-
+  
   return (
     <div className='leaflet-container'>
       <MapContainer zoom={13} center={[-10.61, -75.02]}>

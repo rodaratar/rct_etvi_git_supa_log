@@ -1,22 +1,23 @@
-import RegisterForm from './RegisterForm';
+import RegisterForm from './RegisterForm'; 
 import LoginForm from './LoginForm';
 
 export default function HomePage() {
   return (
-    <div>
-      <h1>Página principal</h1>
+    <div style={{ maxWidth: '400px', margin: '0 auto', padding: '2rem' }}>
+      <h1 style={{ textAlign: 'center' }}>Bienvenido</h1>
 
-      <div style={{ display: 'flex', gap: '2rem', padding: '2rem' }}>
-        <div style={{ border: '2px solid red', padding: '1rem' }}>
-          <h2>Registrarse</h2>
-          <RegisterForm />
-        </div>
+      <div style={{ border: '2px solid blue', padding: '1rem', marginBottom: '2rem' }}>
+        <h2>Iniciar Sesión</h2>
+        <LoginForm />
+      </div>
 
-        <div style={{ border: '2px solid blue', padding: '1rem' }}>
-          <h2>Iniciar Sesión</h2>
-          <LoginForm />
-        </div>
+      <div style={{ border: '2px solid green', padding: '1rem' }}>
+        <h2>Registrarse</h2>
+        <RegisterForm />
       </div>
     </div>
   );
 }
+
+
+
