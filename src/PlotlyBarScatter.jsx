@@ -1,5 +1,8 @@
+// PlotlyBarScatter
 import Plot from 'react-plotly.js';
 import './PlotlyBarScatter.css';
+
+import { supabase } from './supabaseClient';
 
 // src/components/Grafico.jsx
 import { useEffect, useState } from 'react';
@@ -9,11 +12,30 @@ const BarScatter = () => {
 
     const [geoData, setGeoData] = useState(null);
 
-    useEffect(() => {
-        fetch(import.meta.env.BASE_URL + '/geojson/IGP_1.geojson')
-            .then((res) => res.json())
-            .then((data) => setGeoData(data));
-    }, []);
+
+
+useEffect(() => {
+  const fetchGeoData = async () => {
+    const { data, error } = await supabase
+      .from('geojson_eventos')
+      .select('*');
+
+    if (error) {
+      console.error('Error al cargar GeoJSON:', error);
+      return;
+    }
+
+    const geoJsonData = {
+      type: 'FeatureCollection',
+      features: data[0]?.geojson?.features || [],
+    };
+
+    setGeoData(geoJsonData);
+  };
+
+  fetchGeoData();
+}, []);
+
 
     if (!geoData) return <div>Cargando datos...</div>;
 

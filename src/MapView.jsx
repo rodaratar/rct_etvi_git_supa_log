@@ -11,6 +11,8 @@ import { useAuth } from './AuthContext';
 // src/components/Mapa.jsx
 import { useEffect, useState } from 'react';
 
+import { supabase } from './supabaseClient';
+
 const MapView = () => {
 
   const { user } = useAuth();
@@ -32,29 +34,29 @@ const MapView = () => {
 
   const [geoData, setGeoData] = useState(null);
 
-   useEffect(() => {
-    //fetch('/geojson/IGP_1.geojson')
-  fetch('https://ygdoofsevlrtfrgshifj.supabase.co/rest/v1/geojson_eventos', {
-    headers: {
-    'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnZG9vZnNldmxydGZyZ3NoaWZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNzAwMDIsImV4cCI6MjA3MTc0NjAwMn0.l7pWMPejmO_yRAdg-mMMBezBNQABU0Zwk4P6d9iivvA',
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnZG9vZnNldmxydGZyZ3NoaWZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNzAwMDIsImV4cCI6MjA3MTc0NjAwMn0.l7pWMPejmO_yRAdg-mMMBezBNQABU0Zwk4P6d9iivvA',
-    'Content-Type': 'application/json',
-  }
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      //console.log('GeoJSON recibido:', data);
 
-      // Asegúrate que accedes correctamente al objeto geojson
-      const geoJsonData = {
-        type: 'FeatureCollection',
-        features: data[0]?.geojson?.features || [],
-      };
+useEffect(() => {
+  const fetchGeoData = async () => {
+    const { data, error } = await supabase
+      .from('geojson_eventos')
+      .select('*');
 
-      setGeoData(geoJsonData);
-    })
-    .catch((error) => console.error('Error al cargar GeoJSON:', error));
+    if (error) {
+      console.error('Error al cargar GeoJSON:', error);
+      return;
+    }
+
+    const geoJsonData = {
+      type: 'FeatureCollection',
+      features: data[0]?.geojson?.features || [],
+    };
+
+    setGeoData(geoJsonData);
+  };
+
+  fetchGeoData();
 }, []);
+
 
 
   return (
