@@ -16,7 +16,7 @@ export default function RegisterForm() {
       email: data.email,
       password: data.password,
       options: {
-        emailRedirectTo: 'https://rodaratar.github.io/rct_etvi_git_supa_log/login',
+        emailRedirectTo: 'https://rodaratar.github.io/rct_etvi_git_supa_log/#/login',
       },
     });
 
