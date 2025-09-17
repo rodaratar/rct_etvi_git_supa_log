@@ -1,6 +1,6 @@
 // Routes.jsx
-//import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+//import { HashRouter, Routes, Route } from 'react-router-dom';
 
 import { AuthProvider } from './AuthContext';
 import ProtectedRoute from './ProtectedRoute';
@@ -21,7 +21,7 @@ function Dashboard() {
 function App() {
   return (
     <AuthProvider>
-      <HashRouter basename="/rct_etvi_git_supa_log">
+      <BrowserRouter basename="/rct_etvi_git_supa_log/">
         <Routes>
           <Route path="/" element={<HomePage />} /> {/* ✔️ Carga HomePage */}
           <Route path="/login" element={<LoginForm />} />
@@ -49,7 +49,7 @@ function App() {
 />
 
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </AuthProvider>
   );
 }
