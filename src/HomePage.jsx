@@ -11,7 +11,7 @@ export default function HomePage() {
         <LoginForm />
       </div>
 
-      <div style={{ border: '2px solid green', padding: '1rem' }}>
+      <div style={{ border: '2px solid red', padding: '1rem' }}>
         <h2>Registrarse</h2>
         <RegisterForm />
       </div>

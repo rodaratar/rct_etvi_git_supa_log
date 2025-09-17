@@ -1,5 +1,7 @@
 // Routes.jsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+//import { HashRouter, Routes, Route } from 'react-router-dom';
+
 import { AuthProvider } from './AuthContext';
 import ProtectedRoute from './ProtectedRoute';
 
